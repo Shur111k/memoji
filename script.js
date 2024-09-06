@@ -7,9 +7,6 @@ function getRandomEmojis(count, allEmojis) {
     return shuffled.slice(0, count);
   }
 
-const selectedEmojis = getRandomEmojis(6, allEmojis);
-const emojiPairs = [...selectedEmojis, ...selectedEmojis]; 
-
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -51,6 +48,8 @@ function resetGame() {
 }
 
 function startGame() {
+    const selectedEmojis = getRandomEmojis(6, allEmojis);
+    const emojiPairs = [...selectedEmojis, ...selectedEmojis]; 
     const shuffledEmojiPairs = shuffleArray(emojiPairs);
 
     for (let i = 0; i < shuffledEmojiPairs.length; i++) {
