@@ -15,7 +15,8 @@ function shuffleArray(array) {
     return array;
 }
 
-let timeLeft = 60;
+const INITIAL_TIME = 60;
+let timeLeft = INITIAL_TIME;
 let timerInterval;
 let timerStarted = false; 
 const timerDisplay = document.querySelector('.timer');
@@ -39,7 +40,7 @@ tryAgainButton.addEventListener('click', function () {
 });
 
 function resetGame() {
-    timeLeft = 60;
+    timeLeft = INITIAL_TIME;
     timerDisplay.textContent = `Time: ${timeLeft} sec`;
     gameContainer.innerHTML = ''; 
     clearInterval(timerInterval);
