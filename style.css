@@ -5,6 +5,7 @@
     --border-color: #ffffff;
     --linear-gradient: linear-gradient(135deg, #00ffff, #0446a8);
     --modal-bg: rgb(179, 179, 179);
+    --modal-bg-shadow: rgba(0, 0, 0, 0.25);
     --wrong-bg: red;
     --correct-bg: rgb(0, 209, 0);
     --button-gradient: linear-gradient(135deg, #00ffff, #0446a8);
@@ -98,11 +99,11 @@ h2 {
 }
 
 .item.wrong {
-    background-color: var(--wrong-bg) !important; 
+    background-color: var(--wrong-bg); 
 }
 
 .item.correct {
-    background-color: var(--correct-bg) !important;
+    background-color: var(--correct-bg);
 }
 
 .modal {
@@ -113,9 +114,13 @@ h2 {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--modal-bg-shadow);
     justify-content: center;
     align-items: center;
+}
+
+.modal-visible {
+    display: flex;
 }
 
 .modal-content {
@@ -125,7 +130,7 @@ h2 {
     text-align: center;
     width: 25rem;
     height: 14rem;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0.5rem 1rem var(--modal-bg-shadow);
 }
 
 #modal-message {
