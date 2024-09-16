@@ -3,7 +3,7 @@ const allEmojis = ["🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼","🐯
     ,"🐗","🐴","🐝","🦋","🐛","🐌","🐞","🐢","🐙","🦀","🦐","🐡","🐟","🦍"]; 
 
 function getRandomEmojis(count, allEmojis) {
-    let shuffled = shuffleArray(allEmojis);
+    const shuffled = shuffleArray(allEmojis);
     return shuffled.slice(0, count);
   }
 
