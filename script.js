@@ -33,10 +33,10 @@ function hideModal() {
     modal.classList.remove('modal-visible');
 }
 
-tryAgainButton.onclick = function () {
+tryAgainButton.addEventListener('click', function () {
     hideModal();
     resetGame();
-}
+});
 
 function resetGame() {
     timeLeft = 60;
