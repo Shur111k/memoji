@@ -5,7 +5,7 @@ const allEmojis = ["🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼","🐯
 function getRandomEmojis(count, allEmojis) {
     const shuffled = shuffleArray(allEmojis);
     return shuffled.slice(0, count);
-  }
+}
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -53,59 +53,54 @@ function startGame() {
     const emojiPairs = [...selectedEmojis, ...selectedEmojis]; 
     const shuffledEmojiPairs = shuffleArray(emojiPairs);
 
-    for (let i = 0; i < shuffledEmojiPairs.length; i++) {
-        let box = document.createElement('div');
-        box.className = "item";
-        box.innerHTML = shuffledEmojiPairs[i];
+    const boxesHTML = shuffledEmojiPairs.map(emoji => `<div class="item">${emoji}</div>`).join('');
+    gameContainer.innerHTML = boxesHTML;
+}
 
-        box.onclick = function () {
-            if (!timerStarted) {
-                timerStarted = true;
-                startTimer();
-            }
+gameContainer.addEventListener('click', function(event) {
+    if (event.target.classList.contains('item')) {
+        const box = event.target;
 
-            const wrongBoxes = document.querySelectorAll('.wrong');
-            if (wrongBoxes.length === 2) {
-                wrongBoxes.forEach(box => {
-                    box.classList.remove('wrong'); 
-                    box.classList.remove('boxOpen'); 
-                });
-            }
-
-            if (this.classList.contains('boxMatch') || this.classList.contains('boxOpen')) return;
-
-            this.classList.add('boxOpen');
-
-            const openBoxes = document.querySelectorAll('.boxOpen');
-
-            if (openBoxes.length === 2) {
-                const firstBox = openBoxes[0];
-                const secondBox = openBoxes[1];
-
-                if (firstBox.innerHTML === secondBox.innerHTML) {
-                    firstBox.classList.add('boxMatch', 'correct');
-                    secondBox.classList.add('boxMatch', 'correct');
-                } else {
-                    firstBox.classList.add('wrong');
-                    secondBox.classList.add('wrong');
-                    return;
-                }
-
-                if (document.querySelectorAll('.boxMatch').length === selectedEmojis.length * 2) {
-                    showModal('You win!');
-                    clearInterval(timerInterval);
-                }
-
-                setTimeout(() => {
-                    firstBox.classList.remove('boxOpen');
-                    secondBox.classList.remove('boxOpen');
-                }, 500);
-            }
+        if (!timerStarted) {
+            timerStarted = true;
+            startTimer();
         }
 
-        gameContainer.appendChild(box);
+        const wrongBoxes = document.querySelectorAll('.wrong');
+        if (wrongBoxes.length === 2) {
+            wrongBoxes.forEach(box => {
+                box.classList.remove('wrong'); 
+                box.classList.remove('boxOpen'); 
+            });
+        }
+
+        if (box.classList.contains('boxMatch') || box.classList.contains('boxOpen')) return;
+
+        box.classList.add('boxOpen');
+
+        const openBoxes = document.querySelectorAll('.boxOpen');
+
+        if (openBoxes.length === 2) {
+            const firstBox = openBoxes[0];
+            const secondBox = openBoxes[1];
+
+            if (firstBox.innerHTML === secondBox.innerHTML) {
+                firstBox.classList.add('boxMatch', 'correct');
+                secondBox.classList.add('boxMatch', 'correct');
+                firstBox.classList.remove('boxOpen');
+                secondBox.classList.remove('boxOpen');
+            } else {
+                firstBox.classList.add('wrong');
+                secondBox.classList.add('wrong');
+            }
+
+            if (document.querySelectorAll('.boxMatch').length === document.querySelectorAll('.item').length) {
+                showModal('You win!');
+                clearInterval(timerInterval);
+            }            
+        }
     }
-}
+});
 
 function startTimer() {
     timerInterval = setInterval(() => {
