@@ -26,11 +26,11 @@ const tryAgainButton = document.getElementById('try-again');
 
 function showModal(message) {
     modalMessage.textContent = message;
-    modal.style.display = 'flex'; 
+    modal.classList.add('modal-visible');
 }
 
 function hideModal() {
-    modal.style.display = 'none'; 
+    modal.classList.remove('modal-visible');
 }
 
 tryAgainButton.onclick = function () {

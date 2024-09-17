@@ -119,6 +119,10 @@ h2 {
     align-items: center;
 }
 
+.modal-visible {
+    display: flex;
+}
+
 .modal-content {
     background-color: var(--modal-bg);
     padding: 2rem;
