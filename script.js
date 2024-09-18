@@ -60,17 +60,13 @@ function startGame() {
 gameContainer.addEventListener('click', function(event) {
     if (event.target.classList.contains('item')) {
         const box = event.target;
-
-        if (!timerStarted) {
-            timerStarted = true;
-            startTimer();
-        }
+            
+        startTimer();
 
         const wrongBoxes = document.querySelectorAll('.wrong');
         if (wrongBoxes.length === 2) {
             wrongBoxes.forEach(box => {
-                box.classList.remove('wrong'); 
-                box.classList.remove('boxOpen'); 
+                box.classList.remove('wrong','boxOpen');
             });
         }
 
@@ -81,8 +77,7 @@ gameContainer.addEventListener('click', function(event) {
         const openBoxes = document.querySelectorAll('.boxOpen');
 
         if (openBoxes.length === 2) {
-            const firstBox = openBoxes[0];
-            const secondBox = openBoxes[1];
+            const [firstBox, secondBox] = openBoxes;
 
             if (firstBox.innerHTML === secondBox.innerHTML) {
                 firstBox.classList.add('boxMatch', 'correct');
@@ -103,15 +98,19 @@ gameContainer.addEventListener('click', function(event) {
 });
 
 function startTimer() {
-    timerInterval = setInterval(() => {
-        timeLeft--;
-        timerDisplay.textContent = `Time: ${timeLeft} sec`;
+    if (!timerStarted) {
+        timerStarted = true;
 
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            showModal('You lose!');
-        }
-    }, 1000);
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            timerDisplay.textContent = `Time: ${timeLeft} sec`;
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                showModal('You lose!');
+            }
+        }, 1000);
+    }
 }
 
 startGame();
