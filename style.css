@@ -72,6 +72,10 @@ h2 {
     transition: 0.3s;
 }
 
+.item:hover {
+    cursor: pointer;
+}
+
 .item.boxOpen{
     transform: rotateY(0deg)
 }
